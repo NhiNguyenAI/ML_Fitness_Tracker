@@ -27,3 +27,10 @@ The **Fitness Tracker** is a machine learning project designed to analyze and in
   - Sensor readings (e.g., accelerometer, gyroscope)
   - Public datasets or user-collected fitness data
 
+  **enviroment setting**:
+  - conda: download conda from the webseite [conda][https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html]
+  - added the confif: setting -> added the config file  \Minifolge\condabin\conda.bat
+
+**Lincese**
+this projects will develop basic from the projects of Mrs Dave Ebbelaar.https://docs.datalumina.io/
+
