@@ -1,6 +1,3 @@
-# Creating a README.md file with the content written in Markdown format
-
-readme_content = """
 # Fitness Tracker: Machine Learning Project
 
 ## Overview
