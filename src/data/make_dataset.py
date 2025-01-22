@@ -64,30 +64,76 @@ def read_data_files(files):
 # --------------------------------------------------------------
 # Process and Merge Datasets
 # --------------------------------------------------------------
+
 # Read accelerometer and gyroscope data
 acc_df, gyr_df = read_data_files(files)
 
-# Merge data: First 3 columns (metadata) with the rest of the accelerometer data
-data_merged = pd.concat([acc_df.iloc[:, :3], acc_df], axis=1)
+# Merge data: iloc[:,:3] because acc_df and gyr_df have the same 3 parameter: Participant, label, category -> choose the first dataframe without 3 parameters
+# axis = 1 is merged the tables following the colunms, axis= 0, following the row
+data_merged = pd.concat([acc_df.iloc[:, :3], gyr_df], axis=1)
 
 # Remove rows with missing values
-data_merged_cleared = data_merged.dropna()
+#data_merged_cleared = data_merged.dropna()
 
 # Rename the columns for better clarity
-data_merged_cleared.columns = [
-    "acc-x", "acc-y", "acc-z", "gyr-x", "gyr-y", "gyr-z", 
-    "participant", "label", "category", "set"
+data_merged.columns = [
+    "acc-x",
+    "acc-y",
+    "acc-z",
+    "gyr-x",
+    "gyr-y",
+    "gyr-z",
+    "participant",
+    "label",
+    "category",
+    "set"
 ]
 
 # --------------------------------------------------------------
 # Resample Data for Frequency Conversion
-# Accelerometer: 12.500 Hz
-# Gyroscope: 25.000 Hz
+# Accelerometer: 12.500 Hz, 12.500 Hz means the accelerometer records 12.5 measurements per second (or one measurement every 80 milliseconds).
+# Gyroscope: 25.000 Hz, 25.000 Hz means the gyroscope records 25 measurements per second (or one measurement every 40 milliseconds).
+# The goal is to align the accelerometer (12.5 Hz) and gyroscope (25 Hz) data into a common time interval for analysis.
+# Choose a Common Time Interval: The smallest interval that can encompass both frequencies is  milliseconds "200ms". Resample both datasets to 200ms for consistency.
 # --------------------------------------------------------------
-# Placeholder: Implement resampling logic here as needed
-# Example: Resample accelerometer and gyroscope data
-# accelerometer_resampled = acc_df.resample('80ms').mean()
-# gyroscope_resampled = gyr_df.resample('40ms').mean()
+
+
+# data_merged.resample("200ms").mean() lose the seterify parameter: Participant, label, category
+# Solution: sammling -> use the resample.apply(sammling)
+
+sampling =  {
+    "acc-x": "mean",
+    "acc-y": "mean",
+    "acc-z": "mean",
+    "gyr-x": "mean",
+    "gyr-y": "mean",
+    "gyr-z": "mean",
+    "participant": "last",
+    "label": "last",
+    "category": "last",
+    "set": "last"
+}
+
+
+# --------------------------------------------------------------
+# Filter and Resample Data for Frequency Conversion
+# Description: Resample only the active periods of data to avoid inefficiency.
+# Important Note:
+#   - data_merged.resample("200ms").apply(sampling): Resampling in Pandas will process every 200ms interval across the entire dataset.
+#   - If your data is not continuous (e.g., exercises only 2 hours/day, 3 days/week), this may create unnecessary intervals and consume significant resources.
+#   - This take 3332143 rows instate of 9127 rows , it take long time and have alot data with None 
+# Solution:
+#   - Resample only the periods Day 'D' where data exists, using dropna() to filter valid rows first.
+# --------------------------------------------------------------
+
+day = [g for n, g in data_merged.groupby(pd.Grouper(freq='D'))]
+data_resampled = pd.concat([df.resample("200ms").apply(sampling).dropna() for df in day])
+# Convert the "set" column to integers
+data_resampled["set"] = data_resampled["set"].astype(int)
+
+# Display the structure of the resampled DataFrame
+data_resampled.info()
+                                      
 
 # --------------------------------------------------------------
 # Export the Processed Dataset
