@@ -139,4 +139,4 @@ data_resampled.info()
 # Export the Processed Dataset
 # --------------------------------------------------------------
 # Save the merged and cleaned dataset to a CSV file
-
+data_resampled.to_pickle("../../data/interim/data_process.pkl")
