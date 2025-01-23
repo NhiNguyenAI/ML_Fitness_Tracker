@@ -37,5 +37,5 @@ The **Fitness Tracker** is a machine learning project designed to analyze and in
 this projects will develop basic from the projects of Mrs Dave Ebbelaar [datalumina](https://docs.datalumina.io)
 
 ## Process for develop a Machine project
-A separate document has been created to guide users on developing a general machine learning project. This document includes notes and best practices learned during the development of this project. Refer to the file Process_Develop_ML_Project. [Process_Develop_ML_Project](document\doc\Process_Develop_ML_Project.md)
+A separate document has been created to guide users on developing a general machine learning project. This document includes notes and best practices learned during the development of this project. Refer to the file Process_Develop_ML_Project. [Process_Develop_ML_Project](document/doc/Process_Develop_ML_Project.md)
 
