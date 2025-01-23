@@ -18,19 +18,12 @@ len(files)
 # --------------------------------------------------------------
 # Extract features from filename
 # --------------------------------------------------------------
-data_path = "../../data/raw/MetaMotion/"
+data_path = "..\\..\\data\\raw\\MetaMotion\\"
 first_files = files[0]
 
-#------------------------------------
-# structure the name file of the data
-# participant -> ['../../data/raw/MetaMotion\\A',
-#  label ->'bench',
-#  categogy -> 'heavy2' -->  'heavy'
-#  'rpe8_MetaWear_2019',
-#  '01',
-#  '11T16.10.08.270_C42732BE255C_Accelerometer_12.500Hz_1.4.4.csv']
-#-------------------------------------------------------------------
-participant = first_files.split("-")[0].replace(data_path,"") 
+s
+participant = first_files.split("-")[0].replace(data_path, "").replace("\\", "/")  # Normalize the path
+participant = participant.split("/")[-1]  # Keep only the last part (e.g., "A")
 label = first_files.split("-")[1]
 category = first_files.split("-")[2].rstrip("123")
 if "Accelerometer" in first_files:

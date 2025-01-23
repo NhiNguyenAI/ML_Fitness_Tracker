@@ -33,9 +33,9 @@ def read_data_files(path_files):
         - x_acc, y_acc, z_acc: Accelerometer data columns.
         - x_gyr, y_gyr, z_gyr: Gyroscope data columns.
         - participant: The participant identifier.
-        - label: The activity label.
-        - category: The activity category.
-        - set: Unique identifier for each data csv files.
+        - label: The activity label: Bench, Squat..
+        - category: The activity category: Medium or Heavy
+        - Set: Unique identifier for each data csv files.
     """
 
     files = glob(path_files)
@@ -54,7 +54,8 @@ def read_data_files(path_files):
     # Loop through each file and process
     for f in files:
         # Extract metadata from file name
-        participant = f.split("-")[0].replace(data_path, "")
+        participant = f.split("-")[0].replace(data_path, "").replace("\\", "/")  
+        participant = participant.split("/")[-1]  # Keep only the last part (e.g., "A")
         label = f.split("-")[1]
         category = f.split("-")[2].rstrip("123").rstrip("_MetaWear_2019")
 
@@ -116,12 +117,12 @@ def read_and_export_to_pickel_file():
 
     # Rename the columns for better clarity
     data_merged.columns = [
-        "acc-x",
-        "acc-y",
-        "acc-z",
-        "gyr-x",
-        "gyr-y",
-        "gyr-z",
+        "acc_x",
+        "acc_y",
+        "acc_z",
+        "gyr_x",
+        "gyr_y",
+        "gyr_z",
         "participant",
         "label",
         "category",
@@ -141,12 +142,12 @@ def read_and_export_to_pickel_file():
     # Solution: sammling -> use the resample.apply(sammling)
 
     sampling =  {
-        "acc-x": "mean",
-        "acc-y": "mean",
-        "acc-z": "mean",
-        "gyr-x": "mean",
-        "gyr-y": "mean",
-        "gyr-z": "mean",
+        "acc_x": "mean",
+        "acc_y": "mean",
+        "acc_z": "mean",
+        "gyr_x": "mean",
+        "gyr_y": "mean",
+        "gyr_z": "mean",
         "participant": "last",
         "label": "last",
         "category": "last",
