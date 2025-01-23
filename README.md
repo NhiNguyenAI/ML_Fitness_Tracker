@@ -19,12 +19,14 @@ The **Fitness Tracker** is a machine learning project designed to analyze and in
 ## Technology Stack
 
 - **Language**: Python
+
 - **Libraries**:
   - Data Processing: `pandas`, `numpy`
   - Machine Learning: `scikit-learn`, `tensorflow`/`pytorch`
   - Data Visualization: `matplotlib`, `seaborn`
+
 - **Data Sources**: 
-  - Sensor readings (e.g., accelerometer, gyroscope)
+  - Sensor readings (accelerometer, gyroscope)
   - Public datasets or user-collected fitness data
 
   **enviroment setting**:
@@ -33,4 +35,7 @@ The **Fitness Tracker** is a machine learning project designed to analyze and in
 
 **Lincese**
 this projects will develop basic from the projects of Mrs Dave Ebbelaar [datalumina](https://docs.datalumina.io)
+
+## Process for develop a Machine project
+A separate document has been created to guide users on developing a general machine learning project. This document includes notes and best practices learned during the development of this project. Refer to the file Process_Develop_ML_Project. [Process_Develop_ML_Project](document\doc\Process_Develop_ML_Project.md)
 
