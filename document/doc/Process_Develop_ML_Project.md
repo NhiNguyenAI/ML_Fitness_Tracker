@@ -11,4 +11,4 @@ Solution:
 - Resample only the periods Day 'D' where data exists, using dropna() to filter valid rows first **day = [g for n, g in data_merged.groupby(pd.Grouper(freq='D'))]** and **pd.concat([df.resample("").apply(sampling).dropna() for df in day])**
 
 ## Step 2: Data visualisation
-The process for visualizing data follows the steps in the diagram [Workflow_Data_Visualation](image/Work_Flow_Data_Visualation.png): 
+The process for visualizing data follows the steps in the diagram [Workflow_Data_Visualation](/document/image/Work_Flow_Data_Visualation.png): 
