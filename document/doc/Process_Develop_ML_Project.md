@@ -1,10 +1,10 @@
-## Process to develop a Machine Learning Project
+## Process for developing a Machine Learning Project
 
 ### Step 1: 
 - Read the data file
 
-**Note**
-Important Note:
+**Important Note:**
+
 - **data_merged.resample(ms).apply(sampling)**: Resampling in Pandas will process every 200ms interval across the entire dataset.
 - If your data is not continuous ( exercises only 2 hours/day, 3 days/week), this may create unnecessary intervals and consume significant resources.
 Solution:
