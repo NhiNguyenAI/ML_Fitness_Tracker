@@ -84,8 +84,8 @@ participant = "A"
 all_axis_df = df.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index
 fig, ax = plt.subplots()
 
-all_axis_df[["acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z"]] #all_axis_df["acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z"] 
-ax.set_ylabel("acc_y")
+all_axis_df[["acc_x","acc_y","acc_x"]].plot(ax=ax) #all_axis_df["acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z"] 
+ax.set_ylabel("acc_axis")
 ax.set_xlabel("samples")
 plt.legend()
 plt.show()
