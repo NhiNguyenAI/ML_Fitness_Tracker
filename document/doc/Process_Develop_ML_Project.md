@@ -12,3 +12,6 @@ Solution:
 
 ## Step 2: Data visualisation
 The process for visualizing data follows the steps in the diagram [Workflow_Data_Visualation](/document/image/Work_Flow_Data_Visualation.png): 
+
+At the Step 1: 3 Steps have done: Define Objective, colect raw data, data process
+In this step: Focus in the remaining steps
