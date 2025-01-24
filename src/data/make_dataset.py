@@ -35,7 +35,7 @@ def read_data_files(path_files):
         - participant: The participant identifier.
         - label: The activity label: Bench, Squat..
         - category: The activity category: Medium or Heavy
-        - Set: Unique identifier for each data csv files.
+        - et: Unique identifier for each data csv files.
     """
 
     files = glob(path_files)

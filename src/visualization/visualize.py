@@ -79,27 +79,77 @@ plt.show()
 # --------------------------------------------------------------
 # Plot multiple axis
 # --------------------------------------------------------------
-label = "spuat"
+label = "squat"
 participant = "A"
-all_axis_df = df.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index
-fig, ax = plt.subplots()
+all_axis_df = df.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index()
 
-all_axis_df[["acc_x","acc_y","acc_x"]].plot(ax=ax) #all_axis_df["acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z"] 
-ax.set_ylabel("acc_axis")
-ax.set_xlabel("samples")
-plt.legend()
+fig, ax = plt.subplots()
+all_axis_df[["acc_x", "acc_y", "acc_z"]].plot(ax=ax)  # Pass the axis object
+ax.set_ylabel("Acceleration (g)")
+ax.set_xlabel("Samples")
+plt.legend(["acc_x", "acc_y", "acc_z"])  # Explicitly set legend labels
+plt.title(f"Acceleration Data for Label: {label}, Participant: {participant}")
 plt.show()
 
 # --------------------------------------------------------------
 # Create a loop to plot all combinations per sensor
 # --------------------------------------------------------------
+labels = df["label"].unique()
+participants = df["participant"].unique()
 
+for label in labels:
+    for participant in participants:
+       all_axis_df = df.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index()
+
+    fig, ax = plt.subplots()
+    all_axis_df[["acc_x", "acc_y", "acc_z"]].plot(ax=ax)  # Pass the axis object
+    ax.set_ylabel("Acceleration (g)")
+    ax.set_xlabel("Samples")
+    plt.legend(["acc_x", "acc_y", "acc_z"])  # Explicitly set legend labels
+    plt.title(f"{label}({participant})".title())
+    plt.legend()
+    plt.show() 
 
 # --------------------------------------------------------------
 # Combine plots in one figure
 # --------------------------------------------------------------
+label = "row"
+participant = "A"
+combined_plot_df = df.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index(drop =True)
+
+fig, ax= plt.subplots(nrows = 2, sharex = True, figsize = (20,10))
+combined_plot_df[["acc_x", "acc_y", "acc_z"]].plot(ax = ax[0])
+combined_plot_df[["gyr_x", "gyr_y", "gyr_z"]].plot(ax = ax[1])
+
+ax[0].legend(loc = "upper center", bbox_to_anchor=(0.5,1.15), ncol = 3, fancybox = True, shadow=True)
+
+ax[1].legend(loc = "upper center", bbox_to_anchor=(0.5,1.15), ncol = 3, fancybox = True, shadow=True)
 
 
 # --------------------------------------------------------------
 # Loop over all combinations and export for both sensors
 # --------------------------------------------------------------
+
+labels = df["label"].unique()
+participants = df["participant"].unique()
+
+for label in labels:
+    for participant in participants:
+        combined_plot_df_01 = df.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index()
+        if len(combined_plot_df_01) > 0:
+            ig, ax= plt.subplots(nrows = 2, sharex = True, figsize = (20,10))
+            combined_plot_df_01[["acc_x", "acc_y", "acc_z"]].plot(ax = ax[0])
+            combined_plot_df_01[["gyr_x", "gyr_y", "gyr_z"]].plot(ax = ax[1])
+
+              # Add legends
+            ax[0].legend(loc="upper center", bbox_to_anchor=(0.5, 1.15), ncol=3, fancybox=True, shadow=True)
+            ax[1].legend(loc="upper center", bbox_to_anchor=(0.5, 1.15), ncol=3, fancybox=True, shadow=True)
+            
+            # Set axis labels
+            ax[1].set_xlabel("Samples")
+            ax[0].set_ylabel("Accelerometer Data")
+            ax[1].set_ylabel("Gyroscope Data")
+
+            save_path = f"../../reports/figures/{label.title()}_{participant}.png"
+            plt.savefig(save_path)
+            plt.show()
