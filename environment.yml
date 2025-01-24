@@ -23,3 +23,5 @@ dependencies:
       - jupyter-client==7.4.7
       - jupyter-core==5.1.0
       - matplotlib==3.6.2
+      - scipy==1.9.3
+      - scikit-learn==1.2.0

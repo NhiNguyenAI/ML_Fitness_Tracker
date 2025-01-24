@@ -30,6 +30,11 @@ In this step: Focus in the remaining steps
 **Step4**: Adjust plot settings with mpl
 
 **Step5**: Plot multiple axis: Display all variables (e.g.: heavy and medium) of a parameter (e.g.: category) in a diagram.
-***Note1***: If the diagram get messy, then use sort_values -> participant_df = df.query("label =='bench'").**sort_values**("participant").reset_index()
-***Note2***: for the multiple axis: all_axis_df **[** "acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z" **]** is Series, can't plot -> all_axis_df **[[** "acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z" **]]**
+**Note1**: If the diagram get messy, then use sort_values -> participant_df = df.query("label =='bench'").**sort_values**("participant").reset_index()
+**Note2**: for the multiple axis: all_axis_df **[** "acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z" **]** is Series, can't plot -> all_axis_df **[[** "acc_x","acc_y","acc_x","acc_z","gyr_x","gyr_y","gyr_z" **]]**
+
+**Step6**: Export the data for each label following each participant in PNG file
+
+## Step 4: Detecting outliers in sensor data
+
 
