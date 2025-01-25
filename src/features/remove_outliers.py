@@ -38,10 +38,13 @@ columns_outliers = list(df.columns[:6])
 fig, axes = plt.subplots(1, 3, figsize=(20, 10))
 # for acc
 df[columns_outliers[:3] + ["label"]].boxplot(by= "label", ax=axes, layout=(1, 3))
-
+save_path = "../../reports/figures/interquartile_range/acc.png"
+plt.savefig(save_path)
 # for gyr
 fig, axes = plt.subplots(1, 3, figsize=(20, 10))
 df[columns_outliers[3:6] + ["label"]].boxplot(by= "label", ax=axes, layout=(1, 3))
+save_path = "../../reports/figures/interquartile_range/gyr.png"
+plt.savefig(save_path)
 
 
 # --------------------------------------------------------------
