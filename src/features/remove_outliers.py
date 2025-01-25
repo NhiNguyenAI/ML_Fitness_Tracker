@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import math
 import scipy
 from sklearn.neighbors import LocalOutlierFactor
+import Plotting_otliers_in_time
+import mark_outliers_schauvenet
 
 # --------------------------------------------------------------
 # 1. Load data
@@ -46,16 +48,20 @@ df[columns_outliers[3:6] + ["label"]].boxplot(by= "label", ax=axes, layout=(1, 3
 save_path = "../../reports/figures/interquartile_range/gyr.png"
 plt.savefig(save_path)
 
+# above this diagramm have alot of outliers data can't viasualze#
+# Solusion: Use customer function to visualize the outliers in time
+Plotting_otliers_in_time.plot_binary_outliers()
+
 
 # --------------------------------------------------------------
 # Interquartile range (distribution based)
 # --------------------------------------------------------------
-
 # Insert IQR function
-
+mark_outliers_schauvenet.mark_outliers_chauvenet()
 
 # Plot a single column
-
+col = "acc_x"
+mark_outliers_schauvenet(df,col)
 
 # Loop over all columns
 
