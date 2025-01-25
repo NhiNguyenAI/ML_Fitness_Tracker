@@ -150,6 +150,6 @@ for label in labels:
             ax[0].set_ylabel("Accelerometer Data")
             ax[1].set_ylabel("Gyroscope Data")
 
-            save_path = f"../../reports/figures/{label.title()}_{participant}.png"
+            save_path = f"../../reports/figures/linies/{label.title()}_{participant}.png"
             plt.savefig(save_path)
             plt.show()
