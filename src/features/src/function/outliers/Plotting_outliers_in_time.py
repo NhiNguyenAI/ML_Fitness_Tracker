@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 def plot_binary_outliers(dataset, col, outlier_col, reset_index):
     """ Plot outliers in case of a binary outlier score. Here, the col specifies the real data
     column and outlier_col the columns with a binary value (outlier or not).
