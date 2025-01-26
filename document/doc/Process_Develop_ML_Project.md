@@ -109,7 +109,14 @@ Boxplot — Is the box symmetrical?
 **Document for outlier method:**  In this File will be explain, was is different between 3 outliers methode IQR, Schauvenet and Local outlier Factor [Outlier_method](\Outliers_Methods.pdf)
 
 
+### Step 5: Compare 3 method
 
+### Step 6: Choose methof and deal with outliers
+- Test on single column
+- Create a loop for remove all outliers value in the dataset
+- Export new dataframe
+**Note:**  # update the column in the original dataframe
+       **outliers_removed_df.loc[(outliers_removed_df["label"] == label), col] = mark_outliers_chavenet_dataset[col]**
 
 
 

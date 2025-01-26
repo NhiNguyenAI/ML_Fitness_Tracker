@@ -259,27 +259,49 @@ for col in columns_outliers:
 
 # chauvenets criteron method
 for col in columns_outliers:
-    mark_outliers_iqr_df = mark_outliers_chauvenet(df[df["label"]==label],col)
+    mark_outliers_schauvenet_df = mark_outliers_chauvenet(df[df["label"]==label],col)
     save_path = f"../../../reports/figures/compare_outlier_method/bench_{col}(chauvenet).png"
-    plot_binary_outliers(dataset=mark_outliers_iqr_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
+    plot_binary_outliers(dataset=mark_outliers_schauvenet_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
 
 # LOF Method
 columns_outliers = list(df.columns[:6])
-dataset01, outliers01, X_scores01 = mark_outliers_lof(df[df["label"]==label],columns_outliers)
+dataset_lof_01, outliers01, X_scores01 = mark_outliers_lof(df[df["label"]==label],columns_outliers)
 for col in columns_outliers:
     save_path = f"../../../reports/figures/compare_outlier_method/bench_{col}(lof).png"
-    plot_binary_outliers(dataset=dataset01, col=col, outlier_col= "outlier_lof", reset_index =True, save_path=save_path)
-    
+    plot_binary_outliers(dataset=dataset_lof_01, col=col, outlier_col= "outlier_lof", reset_index =True, save_path=save_path)
+
 # --------------------------------------------------------------
 # Choose method and deal with outliers
 # --------------------------------------------------------------
 
 # Test on single column
+col = "gyr_z"
+dataset_schauvenet_01 = mark_outliers_chauvenet(df, col = col)
+dataset_schauvenet_01[dataset_schauvenet_01["gyr_z_outlier"]] # retur all outlier value(true) of gyr_z
 
+dataset_schauvenet_01.loc[dataset_schauvenet_01["gyr_z_outlier"], "gyr_z"] = np.nan # set outliers value in gyr_z to NAN
+len(dataset_schauvenet_01[dataset_schauvenet_01["gyr_z_outlier"]])
 
 # Create a loop
+outliers_removed_df = df.copy()
+for col in columns_outliers:
+    for label in df["label"].unique():
+        mark_outliers_chavenet_dataset = mark_outliers_chauvenet(df[df["label"]==label],col)
+
+        # Replace values marked as outliers with NaN
+        mark_outliers_chavenet_dataset.loc[mark_outliers_chavenet_dataset[col + "_outlier"], col] = np.nan
+
+        # update the column in the original dataframe
+        outliers_removed_df.loc[(outliers_removed_df["label"] == label), col] = mark_outliers_chavenet_dataset[col]
+
+        n_outliers = len(mark_outliers_chavenet_dataset) - len(mark_outliers_chavenet_dataset[col].dropna())
+
+        print(f"Removed {n_outliers} from {col} for {label}")
+
+outliers_removed_df.info()
 
 # --------------------------------------------------------------
 # Export new dataframe
 # --------------------------------------------------------------
 
+outliers_removed_df.to_pickle("../../../data/interim/02_outliers_removed_schauvenets.pkl")
