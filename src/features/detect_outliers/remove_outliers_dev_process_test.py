@@ -203,14 +203,12 @@ df[columns_outliers[:3] + ["label"]].plot.hist( by = "label",figsize = (20,20), 
 df[columns_outliers[3:6] + ["label"]].plot.hist(by = "label", figsize = (20,20), layout=(3, 3))
 
 # Insert Chauvenet's function
+# Loop over all columns
 columns_outliers = list(df.columns[:6])
 for col in columns_outliers:
     mark_outliers_iqr_df = mark_outliers_chauvenet(df,col)
     save_path = f"../../../reports/figures/interquartile_range/{col}.png"
     plot_binary_outliers(dataset=mark_outliers_iqr_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
-
-# Loop over all columns
-
 
 # --------------------------------------------------------------
 # Local outlier factor (distance based)
