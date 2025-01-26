@@ -103,6 +103,10 @@ It's important to note that Chauvenet's criterion is only applicable to datasets
 Histogram — Do you see a bell shaped curve?
 Boxplot — Is the box symmetrical?
 1. check the data is normal distributed? Use plot.hist in the step 1
+2. Use the Chauvenet's function
+
+### Step 4: Local outlier factor
+**Document for outlier method:**  In this File will be explain, was is different between 3 outliers methode IQR, Schauvenet and Local outlier Factor [Outlier_method](\Outliers_Methods.pdf)
 
 
 
