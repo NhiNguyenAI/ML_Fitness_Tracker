@@ -207,7 +207,7 @@ df[columns_outliers[3:6] + ["label"]].plot.hist(by = "label", figsize = (20,20),
 columns_outliers = list(df.columns[:6])
 for col in columns_outliers:
     mark_outliers_iqr_df = mark_outliers_chauvenet(df,col)
-    save_path = f"../../../reports/figures/interquartile_range/{col}.png"
+    save_path = f"../../../reports/figures/chauvenets_criteron/{col}.png"
     plot_binary_outliers(dataset=mark_outliers_iqr_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
 
 # --------------------------------------------------------------
@@ -215,16 +215,61 @@ for col in columns_outliers:
 # --------------------------------------------------------------
 
 # Insert LOF function
+def mark_outliers_lof(dataset, columns, n=20):
+    """Mark values as outliers using LOF
 
+    Args:
+        dataset (pd.DataFrame): The dataset
+        col (string): The column you want apply outlier detection to
+        n (int, optional): n_neighbors. Defaults to 20.
+    
+    Returns:
+        pd.DataFrame: The original dataframe with an extra boolean column
+        indicating whether the value is an outlier or not.
+    """
+    
+    dataset = dataset.copy()
+
+    lof = LocalOutlierFactor(n_neighbors=n)
+    data = dataset[columns]
+    outliers = lof.fit_predict(data)
+    X_scores = lof.negative_outlier_factor_
+
+    dataset["outlier_lof"] = outliers == -1
+    return dataset, outliers, X_scores
 
 # Loop over all columns
-
+columns_outliers = list(df.columns[:6])
+dataset, outliers, X_scores = mark_outliers_lof(df,columns_outliers)
+for col in columns_outliers:
+    save_path = f"../../../reports/figures/local_outlier_factor/{col}.png"
+    plot_binary_outliers(dataset=dataset, col=col, outlier_col= "outlier_lof", reset_index =True, save_path=save_path)
 
 # --------------------------------------------------------------
 # Check outliers grouped by label
 # --------------------------------------------------------------
 
+label = "bench"
+df[df["label"]==label]
+# IQR Method
+for col in columns_outliers:
+    mark_outliers_iqr_df = mark_outliers_iqr(df[df["label"]==label],col)
+    save_path = f"../../../reports/figures/compare_outlier_method/bench_{col}(iqr).png"
+    plot_binary_outliers(dataset=mark_outliers_iqr_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
 
+# chauvenets criteron method
+for col in columns_outliers:
+    mark_outliers_iqr_df = mark_outliers_chauvenet(df[df["label"]==label],col)
+    save_path = f"../../../reports/figures/compare_outlier_method/bench_{col}(chauvenet).png"
+    plot_binary_outliers(dataset=mark_outliers_iqr_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
+
+# LOF Method
+columns_outliers = list(df.columns[:6])
+dataset01, outliers01, X_scores01 = mark_outliers_lof(df[df["label"]==label],columns_outliers)
+for col in columns_outliers:
+    save_path = f"../../../reports/figures/compare_outlier_method/bench_{col}(lof).png"
+    plot_binary_outliers(dataset=dataset01, col=col, outlier_col= "outlier_lof", reset_index =True, save_path=save_path)
+    
 # --------------------------------------------------------------
 # Choose method and deal with outliers
 # --------------------------------------------------------------
