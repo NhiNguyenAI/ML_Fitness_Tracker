@@ -80,7 +80,7 @@ cutoff = 1.2 # try difference the cutoff to see the diffence cutoff= 1.2, custof
 df_lowpass = LowPassFilter().low_pass_filter(df_lowpass, "acc_y", fs, cutoff, order = 5)
 
 # Example take look subset 45
-subset = df_lowpass[df["set"] == 45]
+subset = df_lowpass[df_lowpass["set"] == 45]
 fig, ax = plt.subplots(nrows=2, sharex=True, figsize = (20,10))
 ax[0].plot(subset["acc_y"].reset_index(drop = True), label = "raw data")
 ax[1].plot(subset["acc_y_lowpass"].reset_index(drop = True), label = "butterworth filter")
@@ -99,12 +99,37 @@ for col in predictor_columns:
 # --------------------------------------------------------------
 # Principal component analysis PCA
 # --------------------------------------------------------------
+df_pca = df_lowpass.copy()
+PCA = PrincipalComponentAnalysis()
 
+pc_values = PCA.determine_pc_explained_variance(df_pca, predictor_columns)
+
+plt.figure(figsize = (10,10))
+plt.plot(range(1, len(predictor_columns)+1), pc_values)
+plt.xlabel("principal component number")
+plt.ylabel("explained variance")
+plt.show()
+
+df_pca = PCA.apply_pca(df_pca, predictor_columns, 3)
+
+# Example take look subset 45
+subset = df_pca[df_pca["set"] == 45]
+
+subset[["pca_1", "pca_2", "pca_3"]].plot()
 
 # --------------------------------------------------------------
 # Sum of squares attributes
 # --------------------------------------------------------------
+df_squared = df_pca.copy()
+acc_r = df_squared["acc_x"]**2 + df_squared["acc_y"]**2 + df_squared["acc_z"]**2
+gyr_r = df_squared["gyr_x"]**2 + df_squared["gyr_y"]**2 + df_squared["gyr_z"]**2
 
+df_squared["acc_r"] = np.sqrt(acc_r)
+df_squared["gyr_r"] = np.sqrt(gyr_r)
+
+subset = df_squared[df_squared["set"] == 18]
+
+subset[["acc_r", "gyr_r"]].plot(subplots=True)
 
 # --------------------------------------------------------------
 # Temporal abstraction
