@@ -123,6 +123,8 @@ Boxplot — Is the box symmetrical?
 
 ## Step 4: Feature Engineering
 
+*** Step1** Load data from the step 3
+
 
 
 
