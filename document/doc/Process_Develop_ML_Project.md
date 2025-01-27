@@ -123,7 +123,13 @@ Boxplot — Is the box symmetrical?
 
 ## Step 4: Feature Engineering
 
-*** Step1** Load data from the step 3
+*** Step 1** Load data from the step 3
+*** Step 2** Adjust plot settings
+*** Step 3** Dealing with missing values (imputation) Notice: Use interpolate()
+*** Step 4** Calculating set duration
+*** Step 5** Butterworth lowpass filter for each column
+*** Step 6** Butterworth lowpass filter for all columns
+
 
 
 
