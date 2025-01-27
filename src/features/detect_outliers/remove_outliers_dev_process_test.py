@@ -206,9 +206,9 @@ df[columns_outliers[3:6] + ["label"]].plot.hist(by = "label", figsize = (20,20),
 # Loop over all columns
 columns_outliers = list(df.columns[:6])
 for col in columns_outliers:
-    mark_outliers_iqr_df = mark_outliers_chauvenet(df,col)
+    mark_outliers_schauvenet_df = mark_outliers_chauvenet(df,col)
     save_path = f"../../../reports/figures/chauvenets_criteron/{col}.png"
-    plot_binary_outliers(dataset=mark_outliers_iqr_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
+    plot_binary_outliers(dataset=mark_outliers_schauvenet_df, col=col, outlier_col= col + "_outlier", reset_index =True, save_path=save_path)
 
 # --------------------------------------------------------------
 # Local outlier factor (distance based)

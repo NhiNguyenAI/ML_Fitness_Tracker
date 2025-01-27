@@ -24,7 +24,7 @@ After exporting the data, ensure the following parameters are included in the Da
      pd.concat([df.resample("200ms").apply(sampling).dropna() for df in day])
      ```
 
----
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Step 2: Data Visualization
 Follow the steps outlined in the workflow diagram: **[Workflow_Data_Visualization](/document/image/Work_Flow_Data_Visualation.png)**
@@ -65,7 +65,7 @@ Follow the steps outlined in the workflow diagram: **[Workflow_Data_Visualizatio
 6. **Export Visualizations**:
    Save the plotted data as PNG files for each **label** and **participant**.
 
----
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ## Step 3: Detecting Outliers in Sensor Data
@@ -117,6 +117,12 @@ Boxplot — Is the box symmetrical?
 - Export new dataframe
 **Note:**  # update the column in the original dataframe
        **outliers_removed_df.loc[(outliers_removed_df["label"] == label), col] = mark_outliers_chavenet_dataset[col]**
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+## Step 4: Feature Engineering
+
 
 
 
