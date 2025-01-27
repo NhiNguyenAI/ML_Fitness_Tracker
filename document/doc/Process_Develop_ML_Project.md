@@ -24,7 +24,7 @@ After exporting the data, ensure the following parameters are included in the Da
      pd.concat([df.resample("200ms").apply(sampling).dropna() for df in day])
      ```
 
----
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Step 2: Data Visualization
 Follow the steps outlined in the workflow diagram: **[Workflow_Data_Visualization](/document/image/Work_Flow_Data_Visualation.png)**
@@ -65,7 +65,7 @@ Follow the steps outlined in the workflow diagram: **[Workflow_Data_Visualizatio
 6. **Export Visualizations**:
    Save the plotted data as PNG files for each **label** and **participant**.
 
----
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ## Step 3: Detecting Outliers in Sensor Data
@@ -108,6 +108,27 @@ Boxplot — Is the box symmetrical?
 ### Step 4: Local outlier factor
 **Document for outlier method:**  In this File will be explain, was is different between 3 outliers methode IQR, Schauvenet and Local outlier Factor [Outlier_method](\Outliers_Methods.pdf)
 
+
+### Step 5: Compare 3 method
+
+### Step 6: Choose methof and deal with outliers
+- Test on single column
+- Create a loop for remove all outliers value in the dataset
+- Export new dataframe
+**Note:**  # update the column in the original dataframe
+       **outliers_removed_df.loc[(outliers_removed_df["label"] == label), col] = mark_outliers_chavenet_dataset[col]**
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+## Step 4: Feature Engineering
+
+*** Step 1** Load data from the step 3
+*** Step 2** Adjust plot settings
+*** Step 3** Dealing with missing values (imputation) Notice: Use interpolate()
+*** Step 4** Calculating set duration
+*** Step 5** Butterworth lowpass filter for each column
+*** Step 6** Butterworth lowpass filter for all columns
 
 
 

@@ -1,3 +1,6 @@
+import math
+import scipy
+
 def mark_outliers_chauvenet(dataset, col, C=2):
     """Finds outliers in the specified column of datatable and adds a binary column with
     the same name extended with '_outlier' that expresses the result per data point.
