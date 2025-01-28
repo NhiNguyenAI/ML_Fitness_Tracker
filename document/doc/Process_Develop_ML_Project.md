@@ -129,6 +129,9 @@ Boxplot — Is the box symmetrical?
 *** Step 4** Calculating set duration
 *** Step 5** Butterworth lowpass filter for each column
 *** Step 6** Butterworth lowpass filter for all columns
+*** Step 7** Principal component analysis PCA
+*** Step 8** Sum of squares attributes
+*** Step 9** 
 
 
 
