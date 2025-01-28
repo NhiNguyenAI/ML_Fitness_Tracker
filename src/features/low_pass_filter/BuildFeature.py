@@ -127,7 +127,7 @@ gyr_r = df_squared["gyr_x"]**2 + df_squared["gyr_y"]**2 + df_squared["gyr_z"]**2
 df_squared["acc_r"] = np.sqrt(acc_r)
 df_squared["gyr_r"] = np.sqrt(gyr_r)
 
-subset = df_squared[df_squared["set"] == 18]
+subset = df_squared[df_squared["set"] == 14]
 
 subset[["acc_r", "gyr_r"]].plot(subplots=True)
 
@@ -135,6 +135,38 @@ subset[["acc_r", "gyr_r"]].plot(subplots=True)
 # Temporal abstraction
 # --------------------------------------------------------------
 
+df_temporal = df_squared.copy()
+NumAbs = NumericalAbstraction()
+
+predictor_columns = predictor_columns + ["acc_r", "gyr_r"]
+window_size = int(1000/200)  # 1000ms/200ms
+
+for cols in predictor_columns:
+    #[cols] list
+    df_temporal = NumAbs.abstract_numerical(df_temporal, [cols], window_size= window_size, aggregation_function="mean")
+
+df_temporal
+
+# The Problem hier: The Window Size is 5, it may be 3 Values of the bench and 2 value of the squat
+# Solution: Frist take a look of set
+
+df_temporal_list =[]
+
+for s in df_temporal["set"].unique():
+    subset = df_temporal[df_temporal["set"] == s].copy()
+    for cols in predictor_columns:
+        subset = NumAbs.abstract_numerical(subset, [cols], window_size= window_size, aggregation_function="mean")
+        subset = NumAbs.abstract_numerical(subset, [cols], window_size= window_size, aggregation_function="std")
+       
+    df_temporal_list.append(subset)
+
+df_temporal = pd.concat(df_temporal_list)
+df_temporal.info()
+
+
+subset[["gyr_y", "gyr_y_temp_mean_ws_5", "gyr_y_temp_std_ws_5"]].plot()
+subset[["acc_y", "acc_y_temp_mean_ws_5", "acc_y_temp_std_ws_5"]].plot()
+subset.info()
 
 # --------------------------------------------------------------
 # Frequency features
