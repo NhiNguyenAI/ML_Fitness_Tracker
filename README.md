@@ -41,6 +41,6 @@ A separate document has been created to guide users on developing a general mach
 
 ## Book
 For a better understanding of the process of developing a machine learning model, you can read the following book:
-   - [Machine Learning for  the Quantified Self](quanhttps://link.springer.com/book/10.1007/978-3-319-66308-1)
+   - [Machine Learning for  the Quantified Self](https://link.springer.com/book/10.1007/978-3-319-66308-1)
 
    - [Feature Engineering](http://www.feat.engineering/intro-intro)
