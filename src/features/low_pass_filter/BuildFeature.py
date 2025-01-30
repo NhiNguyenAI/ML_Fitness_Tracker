@@ -3,14 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from DataTransformation import LowPassFilter, PrincipalComponentAnalysis
 from TemporalAbstraction import NumericalAbstraction
-
+from AbstractionFrequency import FourierTransformation
 
 # --------------------------------------------------------------
 # 1. Load data
 # --------------------------------------------------------------
 
 df = pd.read_pickle("../../../data/interim/outliers_removed_schauvenets.pkl")
-
 predictor_columns = list(df.columns[:6])
 
 # --------------------------------------------------------------
@@ -171,7 +170,15 @@ subset.info()
 # --------------------------------------------------------------
 # Frequency features
 # --------------------------------------------------------------
+ 
+df_frequency = df_temporal.copy()
+AbsFs = FourierTransformation()
 
+fs = int(1000/200)
+window_size = df[df["set"] == 14].index[-1] - df[df["set"] == 14].index[0]
+ws = int(window_size.seconds) # 14 min for 1 set
+
+df_frequency = AbsFs.abstract_frequency(df_frequency, ["acc_y"], ws, fs)
 
 # --------------------------------------------------------------
 # Dealing with overlapping windows
