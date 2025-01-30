@@ -159,6 +159,7 @@ for s in df_temporal["set"].unique():
        
     df_temporal_list.append(subset)
 
+# Take careful hier, df_temporal muss copy with reset_index . If dont have reset index -> Alot value have Nan
 df_temporal = pd.concat(df_temporal_list)
 df_temporal.info()
 
@@ -171,19 +172,53 @@ subset.info()
 # Frequency features
 # --------------------------------------------------------------
  
-df_frequency = df_temporal.copy()
-AbsFs = FourierTransformation()
+df_frequency = df_temporal.copy().reset_index()
 
 fs = int(1000/200)
 window_size = df[df["set"] == 14].index[-1] - df[df["set"] == 14].index[0]
 ws = int(window_size.seconds) # 14 min for 1 set
 
+AbsFs = FourierTransformation()
+
 df_frequency = AbsFs.abstract_frequency(df_frequency, ["acc_y"], ws, fs)
+df_frequency.info()
+
+# Visualize results
+subset = df_frequency[df_frequency["set"] == 15]
+subset[["acc_y", "acc_y_temp_mean_ws_5", "acc_y_max_freq", "acc_y_temp_std_ws_5","acc_y_freq_weighted","acc_y_pse"]].plot()
+subset[[
+    "acc_y_freq_weighted",
+    "acc_y_max_freq",
+    "acc_y_pse",
+    "acc_y_freq_0.0_Hz_ws_14",
+    "acc_y_freq_0.357_Hz_ws_14",
+    "acc_y_freq_0.714_Hz_ws_14",
+    "acc_y_freq_1.071_Hz_ws_14",
+    "acc_y_freq_2.5_Hz_ws_14", 
+    "acc_y_freq_1.429_Hz_ws_14"]].plot()
+
+df_frequency_list =[]
+AbsFs = FourierTransformation()
+for s in df_frequency["set"].unique():
+    print(f"Applying Fourier transformations to set {s}")
+    subset = df_frequency[df_frequency["set"] == s].reset_index(drop=True).copy()
+    subset = AbsFs.abstract_frequency(subset, predictor_columns, ws, fs)
+    df_frequency_list.append(subset)
+    
+df_frequency = pd.concat(df_frequency_list).set_index("epoch (ms)", drop=True)
+df_frequency.info()
+      
 
 # --------------------------------------------------------------
 # Dealing with overlapping windows
 # --------------------------------------------------------------
 
+# drop all missing values
+df_frequency= df_frequency.dropna()
+
+# drop 50 prcent data of the dataset
+
+df_frequency = df_frequency[::2]
 
 # --------------------------------------------------------------
 # Clustering
