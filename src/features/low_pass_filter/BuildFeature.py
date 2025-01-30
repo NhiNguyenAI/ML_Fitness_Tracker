@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from DataTransformation import LowPassFilter, PrincipalComponentAnalysis
 from TemporalAbstraction import NumericalAbstraction
 from AbstractionFrequency import FourierTransformation
+from sklearn.cluster import KMeans
 
 # --------------------------------------------------------------
 # 1. Load data
@@ -223,8 +224,75 @@ df_frequency = df_frequency[::2]
 # --------------------------------------------------------------
 # Clustering
 # --------------------------------------------------------------
+# Initialize lists to store distortion and inertia values
+
+df_cluster = df_frequency.dropna()
+
+cluster_column = ["acc_x", "acc_y", "acc_z"]
+k_vaules = range(2,10)
+inertias = []
+
+# Fit K-means for different values of k
+for k in k_vaules:
+    subset = df_cluster[cluster_column]
+    kmeanModel = KMeans(n_clusters=k, n_init = 20, random_state=0)
+    cluster_label = kmeanModel.fit_predict(subset)
+    inertias.append(kmeanModel.inertia_)
+
+plt.figure(figsize = (10,10))
+plt.plot(k_vaules, inertias)
+plt.xlabel("k")
+plt.ylabel("Sum of squared distance")
+save_path = ("../../../reports/figures/features_engineering/K_Means_Inertia_Cluster_png")
+plt.savefig(save_path)
+plt.show()
 
 
+subset = df_cluster[cluster_column]
+kmeanModel = KMeans(n_clusters=5, n_init = 20, random_state=0)
+df_cluster["cluster"] = kmeanModel.fit_predict(subset)
+
+# Plot Cluster
+fig = plt.figure(figsize=(15, 15))
+ax = fig.add_subplot(projection='3d')
+
+# Colors based on cluster labels
+for c in df_cluster["cluster"].unique():
+    subset = df_cluster[df_cluster["cluster"] == c]
+    ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"], 
+               label=f"Cluster {c}", s=40, alpha=0.7)
+
+# Set axis labels
+ax.set_xlabel("acc_x")
+ax.set_ylabel("acc_y")
+ax.set_zlabel("acc_z")
+ax.set_title("3D K-Means Clustering")
+ax.legend()
+save_path = ("../../../reports/figures/features_engineering/3D_K_Means_Inertia_Cluster_png")
+plt.savefig(save_path)
+plt.show()
+
+
+# Compare label diagram and cluster diagram -> find the connection of each other
+fig = plt.figure(figsize=(15, 15))
+ax = fig.add_subplot(projection='3d')
+colors = ['r', 'g', 'b', 'orange', 'purple', 'cyan']
+for l in df_cluster["label"].unique():
+    subset = df_cluster[df_cluster["label"] == l]
+    ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"], 
+               label=f"Label {l}", s=40, alpha=0.7)
+
+# Set axis labels
+ax.set_xlabel("acc_x")
+ax.set_ylabel("acc_y")
+ax.set_zlabel("acc_z")
+ax.set_title("3D Label")
+ax.legend()
+save_path = ("../../../reports/figures/features_engineering/3D_Label.png")
+plt.savefig(save_path)
+plt.show()
 # --------------------------------------------------------------
 # Export dataset
 # --------------------------------------------------------------
+
+df_cluster.to_pickle("../../../data/interim/da_features.pkl")
