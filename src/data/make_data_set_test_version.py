@@ -21,7 +21,7 @@ len(files)
 data_path = "..\\..\\data\\raw\\MetaMotion\\"
 first_files = files[0]
 
-s
+
 participant = first_files.split("-")[0].replace(data_path, "").replace("\\", "/")  # Normalize the path
 participant = participant.split("/")[-1]  # Keep only the last part (e.g., "A")
 label = first_files.split("-")[1]

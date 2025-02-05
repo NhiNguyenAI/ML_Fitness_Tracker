@@ -157,6 +157,7 @@ dataset_schauvenet_02 = mark_outliers_chauvenet(df, col = col)
 dataset_schauvenet_02[dataset_schauvenet_02["gyr_z_outlier"]] # retur all outlier value(true) of gyr_z
 
 dataset_schauvenet_02.loc[dataset_schauvenet_02["gyr_z_outlier"], "gyr_z"] = np.nan # set outliers value in gyr_z to NAN
+dataset_schauvenet_02.info()
 len(dataset_schauvenet_02[dataset_schauvenet_02["gyr_z_outlier"]])
 
 # Create a loop
