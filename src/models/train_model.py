@@ -18,11 +18,12 @@ plt.rcParams["lines.linewidth"] = 2
 # Load data
 # --------------------------------------------------------------
 df = pd.read_pickle("../../data/interim/data_features.pkl")
+df.info()
 
 # --------------------------------------------------------------
 # Create a training and test set
 # --------------------------------------------------------------
-
+df_train = df.copy()
 df_train = df.drop(["participant", "category", "set"], axis = 1) # axis = 1 , remove the column
 
 X = df_train.drop(["label"], axis = 1)
@@ -43,7 +44,30 @@ plt.show()
 # --------------------------------------------------------------
 # Split feature subsets
 # --------------------------------------------------------------
+basis_features = ["acc_x", "acc_y", "acc_z", "gyr_x", "gyr_y", "gyr_z"]
 
+square_features = ["acc_r","gyr_r"]
+
+pca_features = ["pca_1", "pca_2", "pca_3"]
+
+time_features = [f for f in df_train.columns if "_temp_" in f]
+
+frequency_features = [f for f in df_train.columns if ("_freq" in f) or ("_pse" in f)]
+
+cluster_features = ["cluster"]
+
+print("basis_feature", len(basis_features))
+print("square_features", len(square_features))
+print("pca_features", len(pca_features))
+print("time_features", len(time_features))
+print("frequency_features", len(frequency_features))
+print("cluster_features", len(cluster_features))
+
+# Make sure that set feature muss be list
+set_festure_1 = list(set(basis_features))
+set_festure_2 = list(set(basis_features + square_features + pca_features))
+set_festure_3 = list(set(set_festure_2 + time_features))
+set_festure_4 = list(set(set_festure_3 + frequency_features + cluster_features))
 
 # --------------------------------------------------------------
 # Perform forward feature selection using simple decision tree
