@@ -14,6 +14,10 @@ plt.rcParams["figure.figsize"] = (20, 5)
 plt.rcParams["figure.dpi"] = 100
 plt.rcParams["lines.linewidth"] = 2
 
+# --------------------------------------------------------------
+# Load data
+# --------------------------------------------------------------
+df = pd.read_pickle("../../data/interim/data_features.pkl")
 
 # --------------------------------------------------------------
 # Create a training and test set
