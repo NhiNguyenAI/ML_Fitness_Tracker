@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-from models.LearningAlgorithms import ClassificationAlgorithms
+from LearningAlgorithms import ClassificationAlgorithms
 import seaborn as sns
 import itertools
 from sklearn.metrics import accuracy_score, confusion_matrix
@@ -22,6 +22,22 @@ df = pd.read_pickle("../../data/interim/data_features.pkl")
 # --------------------------------------------------------------
 # Create a training and test set
 # --------------------------------------------------------------
+
+df_train = df.drop(["participant", "category", "set"], axis = 1) # axis = 1 , remove the column
+
+X = df_train.drop(["label"], axis = 1)
+y = df_train["label"]
+
+# Take 25 precent of dataset for the test 0.25
+# Set the stratify = y , y is label, because i want to ensure equal distrubution of all labels
+x_train, x_test, y_train, y_test = train_test_split(X, y,test_size = 0.25, random_state=42, stratify= y)
+
+fig, ax = plt.subplots(figsize = (10,5))
+df_train["label"].value_counts().plot(kind = "bar",color= 'green', ax = ax, label = "Label")
+y_train.value_counts().plot(kind = "bar", ax = ax, color = 'black', label = "y_train")
+y_test.value_counts().plot(kind = "bar", ax = ax, color= 'blue', label = "y_test")
+plt.legend()
+plt.show()
 
 
 # --------------------------------------------------------------
