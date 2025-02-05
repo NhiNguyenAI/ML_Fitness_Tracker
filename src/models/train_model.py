@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-from LearningAlgorithms import ClassificationAlgorithms
+from models.LearningAlgorithms import ClassificationAlgorithms
 import seaborn as sns
 import itertools
 from sklearn.metrics import accuracy_score, confusion_matrix
