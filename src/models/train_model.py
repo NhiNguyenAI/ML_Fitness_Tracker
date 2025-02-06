@@ -31,7 +31,7 @@ y = df_train["label"]
 
 # Take 25 precent of dataset for the test 0.25
 # Set the stratify = y , y is label, because i want to ensure equal distrubution of all labels
-x_train, x_test, y_train, y_test = train_test_split(X, y,test_size = 0.25, random_state=42, stratify= y)
+X_train, X_test, y_train, y_test = train_test_split(X, y,test_size = 0.25, random_state=42, stratify= y)
 
 fig, ax = plt.subplots(figsize = (10,5))
 df_train["label"].value_counts().plot(kind = "bar",color= 'green', ax = ax, label = "Label")
@@ -111,7 +111,7 @@ plt.show()
 # --------------------------------------------------------------
 # Grid search for best hyperparameters and model selection
 # --------------------------------------------------------------
-possible_festures_set = [
+possible_feature_sets = [
                             set_festure_1,
                             set_festure_2,
                             set_festure_3,
@@ -119,7 +119,7 @@ possible_festures_set = [
                             selected_features
                         ]
 
-featureS_names = ["set_festure_1",
+feature_names = ["set_festure_1",
                   "set_festure_2",
                   "set_festure_3",
                   "set_festure_4",
