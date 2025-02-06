@@ -72,6 +72,28 @@ set_festure_4 = list(set(set_festure_3 + frequency_features + cluster_features))
 # --------------------------------------------------------------
 # Perform forward feature selection using simple decision tree
 # --------------------------------------------------------------
+'''
+Feature selection: Decision Tree
+
+Forward selection for classification which selects a pre-defined number of features (max_features) that show the best accuracy. 
+We assume a decision tree learning for this purpose, but this can easily be changed.
+It return the best features.
+
+'''
+max_features = 10
+learner = ClassificationAlgorithms()
+
+# this step is not using the train test slit, this is using the tranning data
+selected_features, ordered_features, ordered_scores = learner.forward_selection( max_features, x_train, y_train)
+
+# plot the best  festures of the model
+fig, ax = plt.subplots(figsize = (10,5))
+plt.plot(np.arange(1, max_features+1), ordered_scores, marker = "o")
+plt.xticks(np.arange(1, max_features+1))
+plt.x_label = "Number of features"
+plt.y_label = "Accuracy"
+plt.title("Forward feature selection")
+plt.show()
 
 
 # --------------------------------------------------------------
