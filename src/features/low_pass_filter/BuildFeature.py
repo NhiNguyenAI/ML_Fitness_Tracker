@@ -232,6 +232,7 @@ cluster_column = ["acc_x", "acc_y", "acc_z"]
 k_vaules = range(2,10)
 inertias = []
 
+# Step: Check that which k should be best for the project
 # Fit K-means for different values of k
 for k in k_vaules:
     subset = df_cluster[cluster_column]
@@ -247,7 +248,7 @@ save_path = ("../../../reports/figures/features_engineering/K_Means_Inertia_Clus
 plt.savefig(save_path)
 plt.show()
 
-
+# After find the k, then n_cluster = 5 = k
 subset = df_cluster[cluster_column]
 kmeanModel = KMeans(n_clusters=5, n_init = 20, random_state=0)
 df_cluster["cluster"] = kmeanModel.fit_predict(subset)
@@ -259,7 +260,7 @@ ax = fig.add_subplot(projection='3d')
 # Colors based on cluster labels
 for c in df_cluster["cluster"].unique():
     subset = df_cluster[df_cluster["cluster"] == c]
-    ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"], 
+    ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"],
                label=f"Cluster {c}", s=40, alpha=0.7)
 
 # Set axis labels
