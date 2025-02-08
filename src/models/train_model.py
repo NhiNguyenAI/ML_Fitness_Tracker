@@ -84,7 +84,7 @@ max_features = 10
 learner = ClassificationAlgorithms()
 
 # this step is not using the train test slit, this is using the tranning data
-selected_features, ordered_features, ordered_scores = learner.forward_selection( max_features, x_train, y_train)
+selected_features, ordered_features, ordered_scores = learner.forward_selection( max_features, X_train, y_train)
 
 # After the Selection of the best features, we can plot the best features of the model
 # Selected _features = ordered_scores
