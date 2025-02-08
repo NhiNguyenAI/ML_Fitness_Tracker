@@ -1,36 +1,34 @@
-"""
-This method trains and evaluates the performance of classification models on the data, including models such as Decision Tree, Neural Network, Random Forest, KNN, and Naive Bayes. These models are trained with different feature sets and their accuracy is compared after each training iteration.
-
-Parameters:
-
-    - **possible_feature_sets**: Sets of features that can be used for training the model.
-    - **feature_names**: Names of the features in the data.
-    - **X_train**: Training data for the features.
-    - **y_train**: Training labels (output data).
-    - **X_test**: Feature data for testing the model.
-    - **y_test**: Labels data for testing the model.
-    - **iterations**: The number of training iterations to compute average performance.
-
-Returns:
-    - score_df: A DataFrame containing the accuracy of each model for each feature set.
-
-The function will train the classification models for each feature set and store the accuracy results in a DataFrame. The classification models trained include:
-- Neural Network (NN)
-- Random Forest (RF)
-- K-Nearest Neighbors (KNN)
-- Decision Tree (DT)
-- Naive Bayes (NB)
-
-This method, based on the principles from the book "Machine Learning for the Quantified Self".
-
-"""
-
-
 from sklearn.metrics import accuracy_score
 import pandas as pd
 from LearningAlgorithms import ClassificationAlgorithms as learner
 
 def classification_training_models(possible_feature_sets,feature_names,X_train, y_train, X_test, y_test, iterations):
+    """
+        This method trains and evaluates the performance of classification models on the data, including models such as Decision Tree, Neural Network, Random Forest, KNN, and Naive Bayes. These models are trained with different feature sets and their accuracy is compared after each training iteration.
+
+        Parameters:
+
+            - **possible_feature_sets**: Sets of features that can be used for training the model.
+            - **feature_names**: Names of the features in the data.
+            - **X_train**: Training data for the features.
+            - **y_train**: Training labels (output data).
+            - **X_test**: Feature data for testing the model.
+            - **y_test**: Labels data for testing the model.
+            - **iterations**: The number of training iterations to compute average performance.
+
+        Returns:
+            - score_df: A DataFrame containing the accuracy of each model for each feature set.
+
+        The function will train the classification models for each feature set and store the accuracy results in a DataFrame. The classification models trained include:
+        - Neural Network (NN)
+        - Random Forest (RF)
+        - K-Nearest Neighbors (KNN)
+        - Decision Tree (DT)
+        - Naive Bayes (NB)
+
+        This method, based on the principles from the book "Machine Learning for the Quantified Self".
+
+    """
     
     for i, f in zip(range(len(possible_feature_sets)), feature_names):
         print("Feature set:", i)
