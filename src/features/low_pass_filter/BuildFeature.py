@@ -280,7 +280,7 @@ ax = fig.add_subplot(projection='3d')
 colors = ['r', 'g', 'b', 'orange', 'purple', 'cyan']
 for l in df_cluster["label"].unique():
     subset = df_cluster[df_cluster["label"] == l]
-    ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"], 
+    ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"],
                label=f"Label {l}", s=40, alpha=0.7)
 
 # Set axis labels
