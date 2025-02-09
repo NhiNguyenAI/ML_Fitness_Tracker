@@ -25,7 +25,7 @@ The **Fitness Tracker** is a machine learning project designed to analyze and in
   - Machine Learning: `scikit-learn`, `tensorflow`/`pytorch`
   - Data Visualization: `matplotlib`, `seaborn`
 
-- **Data Sources**: 
+- **Data Sources**:
   - Sensor readings (accelerometer, gyroscope)
   - Public datasets or user-collected fitness data
 
