@@ -220,6 +220,27 @@ for i, f in zip(range(len(possible_feature_sets)), feature_names):
 # Create a grouped bar plot to compare the results
 # --------------------------------------------------------------
 
+score_df.sort_values(by = "accuracy", ascending = False, inplace = True)
+
+# plot the best  festures of the model
+fig, ax = plt.subplots(figsize = (10,5))
+sns.barplot(x="model", y="accuracy", hue="feature_set", data=score_df)
+plt.x_label = "model"
+plt.y_label = "Accuracy"
+plt.ylim(0.7, 1)
+plt.legend(loc="lower right")
+plt.show()
+
+
+(
+    class_train_y,
+    class_test_y,
+    class_train_prob_y,
+    class_test_prob_y,
+) = learner.random_forest(
+            selected_train_X, y_train, selected_test_X, gridsearch=True
+)
+
 
 # --------------------------------------------------------------
 # Select best model and evaluate results
