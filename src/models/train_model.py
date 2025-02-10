@@ -75,7 +75,7 @@ set_festure_4 = list(set(set_festure_3 + frequency_features + cluster_features))
 '''
 Feature selection: Decision Tree
 
-Forward selection for classification which selects a pre-defined number of features (max_features) that show the best accuracy. 
+Forward selection for classification which selects a pre-defined number of features (max_features) that show the best accuracy.
 We assume a decision tree learning for this purpose, but this can easily be changed.
 It return the best features.
 
