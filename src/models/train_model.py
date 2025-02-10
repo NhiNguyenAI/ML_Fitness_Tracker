@@ -88,7 +88,8 @@ selected_features, ordered_features, ordered_scores = learner.forward_selection(
 
 # After the Selection of the best features, we can plot the best features of the model
 # Selected _features = ordered_scores
-selected_features = [   'acc_z_freq_0.0_Hz_ws_14',
+selected_features = [   
+                        'acc_z_freq_0.0_Hz_ws_14',
                         'acc_x_freq_0.0_Hz_ws_14',
                         'duration',
                         'acc_y_freq_0.0_Hz_ws_14',
@@ -119,11 +120,13 @@ possible_feature_sets = [
                             selected_features
                         ]
 
-feature_names = ["set_festure_1",
+feature_names = [
+                  "set_festure_1",
                   "set_festure_2",
                   "set_festure_3",
                   "set_festure_4",
-                  "selected_features"]
+                  "selected_features"
+                ]
 
 # Number of iterations for training
 iterations = 1
@@ -231,16 +234,17 @@ plt.ylim(0.7, 1)
 plt.legend(loc="lower right")
 plt.show()
 
-
+# choose the best model after plot the best features of the model
 (
     class_train_y,
     class_test_y,
     class_train_prob_y,
     class_test_prob_y,
 ) = learner.random_forest(
-            selected_train_X, y_train, selected_test_X, gridsearch=True
+            X_train[selected_features], y_train, X_test[selected_features], gridsearch=True
 )
 
+accuracy= accuracy_score(y_test, class_test_y)
 
 # --------------------------------------------------------------
 # Select best model and evaluate results
