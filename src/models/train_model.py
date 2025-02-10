@@ -88,16 +88,16 @@ selected_features, ordered_features, ordered_scores = learner.forward_selection(
 
 # After the Selection of the best features, we can plot the best features of the model
 # Selected _features = ordered_scores
-selected_features = [   "acc_z_freq_0.0_Hz_ws_14",
-                        "acc_x_freq_0.0_Hz_ws_14",
-                        "duration",
-                        "cluster",
-                        "gyr_r_freq_0.0_Hz_ws_14",
-                        "gyr_z_pse",
-                        "acc_z_freq_2.5_Hz_ws_14",
-                        "acc_z_freq_0.714_Hz_ws_14",
-                        "gyr_x_temp_mean_ws_5",
-                        "gyr_y_freq_1.429_Hz_ws_14"
+selected_features = [   'acc_z_freq_0.0_Hz_ws_14',
+                        'acc_x_freq_0.0_Hz_ws_14',
+                        'duration',
+                        'acc_y_freq_0.0_Hz_ws_14',
+                        'gyr_r_freq_0.0_Hz_ws_14',
+                        'acc_x_freq_2.143_Hz_ws_14',
+                        'acc_z_temp_mean_ws_5',
+                        'acc_x_temp_std_ws_5',
+                        'gyr_r_freq_1.429_Hz_ws_14',
+                        'gyr_z'
                     ]
 # plot the best  festures of the model
 fig, ax = plt.subplots(figsize = (10,5))
@@ -125,7 +125,7 @@ feature_names = ["set_festure_1",
                   "set_festure_4",
                   "selected_features"]
 
-# Number of iterations for training 
+# Number of iterations for training
 iterations = 1
 score_df = pd.DataFrame()
 
