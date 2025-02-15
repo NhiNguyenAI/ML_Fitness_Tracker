@@ -1,3 +1,7 @@
+# Create confusion matrix
+classes  = class_test_prob_y.columns
+cm = confusion_matrix(y_test, class_test_y, labels = classes)
+
 # create confusion matrix for cm
 plt.figure(figsize=(10, 10))
 plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
