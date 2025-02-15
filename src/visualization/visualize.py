@@ -12,7 +12,7 @@ df = pd.read_pickle("../../data/interim/data_process.pkl")
 # Plot single columns
 # --------------------------------------------------------------
 set_df = df[df["set"] == 1]
-plt.plot(set_df["acc_y"]) 
+plt.plot(set_df["acc_y"])
 
 # this case dont tell us, how much sample we have  -> reset_index, drop = true: covert timestamp to index
 plt.plot(set_df["acc_y"].reset_index(drop = True))
@@ -108,7 +108,7 @@ for label in labels:
     plt.legend(["acc_x", "acc_y", "acc_z"])  # Explicitly set legend labels
     plt.title(f"{label}({participant})".title())
     plt.legend()
-    plt.show() 
+    plt.show()
 
 # --------------------------------------------------------------
 # Combine plots in one figure

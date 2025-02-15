@@ -88,7 +88,7 @@ selected_features, ordered_features, ordered_scores = learner.forward_selection(
 
 # After the Selection of the best features, we can plot the best features of the model
 # Selected _features = ordered_scores
-selected_features = [   
+selected_features = [
                         'acc_z_freq_0.0_Hz_ws_14',
                         'acc_x_freq_0.0_Hz_ws_14',
                         'duration',

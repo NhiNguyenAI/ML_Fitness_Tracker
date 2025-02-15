@@ -54,7 +54,7 @@ def read_data_files(path_files):
     # Loop through each file and process
     for f in files:
         # Extract metadata from file name
-        participant = f.split("-")[0].replace(data_path, "").replace("\\", "/")  
+        participant = f.split("-")[0].replace(data_path, "").replace("\\", "/")
         participant = participant.split("/")[-1]  # Keep only the last part (e.g., "A")
         label = f.split("-")[1]
         category = f.split("-")[2].rstrip("123").rstrip("_MetaWear_2019")
