@@ -295,6 +295,19 @@ y_train = participants_df[participants_df["participant"] != "A"]["label"]
 X_test = participants_df[participants_df["participant"] == "A"].drop("label", axis = 1)
 y_test = participants_df[participants_df["participant"] == "A"]["label"]
 
+# Clearn the participant data for the traning
+X_train = X_train.drop(["participant"], axis = 1)
+X_test = X_test.drop(["participant"], axis = 1)
+
+
+# plot bar plot for the y_train and y_test
+fig, ax = plt.subplots(figsize = (10,5))
+df_train["label"].value_counts().plot(kind = "bar",color= 'green', ax = ax, label = "Label")
+y_train.value_counts().plot(kind = "bar", ax = ax, color = 'black', label = "y_train")
+y_test.value_counts().plot(kind = "bar", ax = ax, color= 'blue', label = "y_test")
+plt.legend()
+plt.show()
+
 
 # --------------------------------------------------------------
 # Use best model again and evaluate results
