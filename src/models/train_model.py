@@ -281,6 +281,20 @@ plt.show()
 # Select train and test data based on participant
 # --------------------------------------------------------------
 
+# create a list of participants
+participants_df = df.drop(["set", "category"], axis = 1)
+participants_df.info()
+
+# Choose a participant for training
+
+X_train = participants_df[participants_df["participant"] != "A"].drop("label", axis = 1)
+y_train = participants_df[participants_df["participant"] != "A"]["label"]
+
+# Choose a participant for testing
+
+X_test = participants_df[participants_df["participant"] == "A"].drop("label", axis = 1)
+y_test = participants_df[participants_df["participant"] == "A"]["label"]
+
 
 # --------------------------------------------------------------
 # Use best model again and evaluate results
