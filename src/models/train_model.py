@@ -246,6 +246,10 @@ plt.show()
 
 accuracy= accuracy_score(y_test, class_test_y)
 
+# --------------------------------------------------------------
+# Select best model and evaluate results
+# --------------------------------------------------------------
+
 # Create confusion matrix
 classes  = class_test_prob_y.columns
 cm = confusion_matrix(y_test, class_test_y, labels = classes)
@@ -272,11 +276,6 @@ plt.ylabel("True label")
 plt.xlabel("Predicted label")
 plt.grid(False)
 plt.show()
-
-# --------------------------------------------------------------
-# Select best model and evaluate results
-# --------------------------------------------------------------
-
 
 # --------------------------------------------------------------
 # Select train and test data based on participant
